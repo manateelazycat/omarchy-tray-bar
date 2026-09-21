@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-3.0-only
+// Derived from Omarchy's MIT-licensed Tray.qml; see THIRD_PARTY_NOTICES.md.
+
 import Quickshell
 import QtQuick
 import QtQuick.Controls

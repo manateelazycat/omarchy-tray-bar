@@ -12,6 +12,7 @@ test("manifest defines a zero-configuration replacement for omarchy.tray", () =>
 
   assert.equal(manifest.id, "io.github.manateelazycat.tray-bar");
   assert.equal(manifest.version, packageMetadata.version);
+  assert.equal(manifest.license, "GPL-3.0-only");
   assert.deepEqual(manifest.kinds, ["bar-widget"]);
   assert.equal(manifest.entryPoints.barWidget, "Tray.qml");
   assert.equal(manifest.omarchy.clonedFrom, "omarchy.tray");
@@ -53,4 +54,6 @@ test("README documents one-command installation and upstream credit", () => {
   assert.match(source, /omarchy plugin add https:\/\/github\.com\/manateelazycat\/omarchy-tray-bar\.git --enable --yes/);
   assert.match(source, /No manual edits/);
   assert.match(source, /github\.com\/omacom\/omarchy/);
+  assert.match(source, /GNU General Public License v3\.0 only/);
+  assert.equal(fs.existsSync(path.join(root, "licenses/OMARCHY-LICENSE")), true);
 });

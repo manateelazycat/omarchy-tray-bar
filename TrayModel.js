@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) David Heinemeier Hansson
+
 function text(value) {
   return String(value || "").toLowerCase()
 }

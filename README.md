@@ -45,8 +45,10 @@ npm test
 ## Credits
 
 Based on the system tray from [Omarchy](https://github.com/omacom/omarchy),
-licensed under the MIT License. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+whose original MIT license is preserved in
+[licenses/OMARCHY-LICENSE](licenses/OMARCHY-LICENSE). See
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+GNU General Public License v3.0 only. See [LICENSE](LICENSE).
