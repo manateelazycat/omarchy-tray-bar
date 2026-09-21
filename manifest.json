@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.manateelazycat.tray-bar",
+  "name": "Omarchy Tray Bar",
+  "version": "0.1.0",
+  "author": "ManateeLazyCat",
+  "license": "MIT",
+  "description": "Shows Omarchy system tray icons directly without an expander arrow.",
+  "kinds": ["bar-widget"],
+  "entryPoints": {
+    "barWidget": "Tray.qml"
+  },
+  "barWidget": {
+    "displayName": "Omarchy Tray Bar",
+    "description": "System tray icons that are always visible.",
+    "category": "Status",
+    "allowMultiple": false,
+    "defaultSection": "right"
+  },
+  "omarchy": {
+    "clonedFrom": "omarchy.tray"
+  }
+}
