@@ -1,6 +1,6 @@
 # Omarchy Tray Bar
 
-![Omarchy Tray Bar](https://github.com/user-attachments/assets/3026a63f-00e2-4511-bec6-b186e8f62867)
+![Omarchy Tray Bar](preview.jpg)
 
 An Omarchy bar plugin that displays all non-hidden system tray icons directly,
 without an expander arrow or hover-to-expand interaction.
