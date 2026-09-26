@@ -1,5 +1,7 @@
 # Omarchy Tray Bar
 
+English | [简体中文](README.zh-CN.md)
+
 ![Omarchy Tray Bar](preview.jpg)
 
 An Omarchy bar plugin that displays all non-hidden system tray icons directly,
