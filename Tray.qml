@@ -1,3 +1,4 @@
+import "CompatUi" as ThemeUi
 // SPDX-License-Identifier: GPL-3.0-only
 // Derived from Omarchy's MIT-licensed Tray.qml; see THIRD_PARTY_NOTICES.md.
 
@@ -6,7 +7,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Effects
 import Quickshell.Services.SystemTray
-import qs.Commons
+import qs.Commons as Commons
 import qs.Ui
 import "TrayModel.js" as TrayModel
 
@@ -19,15 +20,15 @@ BarWidget {
   property bool trayMenuOpen: false
   property var activeTrayItem: null
   property var activeTrayAnchor: null
-  readonly property color foreground: bar ? bar.foreground : Color.foreground
-  readonly property string fontFamily: bar ? bar.fontFamily : Style.font.family
+  readonly property color foreground: bar ? bar.foreground : Commons.Color.foreground
+  readonly property string fontFamily: bar ? bar.fontFamily : Commons.Style.font.family
   readonly property var pinnedIds: settings.pinned instanceof Array ? settings.pinned : []
   readonly property var hiddenIds: settings.hidden instanceof Array ? settings.hidden : []
   readonly property var pinnedItems: bucket("pinned")
   readonly property var drawerItems: bucket("drawer")
   readonly property var allItems: bucket("all")
   readonly property int drawerCount: drawerItems.length
-  readonly property int trayItemExtent: Style.bar.iconSlot
+  readonly property int trayItemExtent: Commons.Style.bar.iconSlot
   readonly property int trayItemGap: 0
   readonly property int trayJoinGap: 0
   readonly property int drawerExtent: drawerCount > 0 ? drawerCount * trayItemExtent + (drawerCount - 1) * trayItemGap : 0
@@ -340,25 +341,25 @@ BarWidget {
     }
   }
 
-  PopupCard {
+  ThemeUi.PopupCard {
     id: managePopup
     anchorItem: root
     owner: root
     bar: root.bar
     open: root.managePopupOpen
-    contentWidth: managePopup.fittedContentWidth(Style.space(300))
+    contentWidth: managePopup.fittedContentWidth(Commons.Style.space(300))
     contentHeight: managePopup.fittedContentHeight(manageColumn.implicitHeight)
 
     Column {
       id: manageColumn
       anchors.fill: parent
-      spacing: Style.space(8)
+      spacing: Commons.Style.space(8)
 
       Text {
         text: "Tray icons"
         color: root.foreground
         font.family: root.fontFamily
-        font.pixelSize: Style.font.body
+        font.pixelSize: Commons.Style.font.body
         font.bold: true
       }
 
@@ -366,7 +367,7 @@ BarWidget {
         text: "Pinned icons stay visible. Hidden icons never show."
         color: Qt.darker(root.foreground, 1.4)
         font.family: root.fontFamily
-        font.pixelSize: Style.font.caption
+        font.pixelSize: Commons.Style.font.caption
         wrapMode: Text.WordWrap
         width: parent.width
       }
@@ -376,7 +377,7 @@ BarWidget {
         text: "No tray items reporting."
         color: Qt.darker(root.foreground, 1.5)
         font.family: root.fontFamily
-        font.pixelSize: Style.font.bodySmall
+        font.pixelSize: Commons.Style.font.bodySmall
         font.italic: true
       }
 
@@ -415,17 +416,17 @@ BarWidget {
             textFormat: Text.PlainText
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: rowIcon.right
-            anchors.leftMargin: Style.space(10)
+            anchors.leftMargin: Commons.Style.space(10)
             anchors.right: rowHideBtn.left
-            anchors.rightMargin: Style.space(8)
+            anchors.rightMargin: Commons.Style.space(8)
             text: rowRoot.displayName
             color: root.foreground
             font.family: root.fontFamily
-            font.pixelSize: Style.font.bodySmall
+            font.pixelSize: Commons.Style.font.bodySmall
             elide: Text.ElideRight
           }
 
-          Button {
+          ThemeUi.Button {
             id: rowPinBtn
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
@@ -434,23 +435,23 @@ BarWidget {
             foreground: root.foreground
             horizontalPadding: 8
             verticalPadding: 3
-            iconSize: Style.font.bodySmall
-            fontSize: Style.font.bodySmall
+            iconSize: Commons.Style.font.bodySmall
+            fontSize: Commons.Style.font.bodySmall
             onClicked: root.togglePin(rowRoot.itemId)
           }
 
-          Button {
+          ThemeUi.Button {
             id: rowHideBtn
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: rowPinBtn.left
-            anchors.rightMargin: Style.space(6)
+            anchors.rightMargin: Commons.Style.space(6)
             iconText: "\uf06e"
             text: rowRoot.isHidden ? "Show" : "Hide"
             foreground: root.foreground
             horizontalPadding: 8
             verticalPadding: 3
-            iconSize: Style.font.bodySmall
-            fontSize: Style.font.bodySmall
+            iconSize: Commons.Style.font.bodySmall
+            fontSize: Commons.Style.font.bodySmall
             onClicked: root.toggleHide(rowRoot.itemId)
           }
         }
@@ -463,7 +464,7 @@ BarWidget {
     menu: root.activeTrayItem ? root.activeTrayItem.menu : null
   }
 
-  PopupCard {
+  ThemeUi.PopupCard {
     id: trayMenuPopup
     anchorItem: root.activeTrayAnchor || root
     owner: root
@@ -476,10 +477,10 @@ BarWidget {
     // for the fade to actually finish. Switching to a different tray item
     // still resets immediately, from openTrayMenu() itself.
     onVisibleChanged: if (!visible) root.resetTrayMenu()
-    padding: Style.space(8)
+    padding: Commons.Style.space(8)
     borderColor: Qt.rgba(root.foreground.r, root.foreground.g, root.foreground.b, 0.45)
-    contentWidth: trayMenuPopup.fittedContentWidth(Style.space(232))
-    contentHeight: trayMenuPopup.fittedContentHeight(menuHeaderHeight + trayMenuColumn.implicitHeight, Style.space(420))
+    contentWidth: trayMenuPopup.fittedContentWidth(Commons.Style.space(232))
+    contentHeight: trayMenuPopup.fittedContentHeight(menuHeaderHeight + trayMenuColumn.implicitHeight, Commons.Style.space(420))
 
     // Column skips invisible children but keeps reporting their height, so
     // read the header's extent through its own visibility.
@@ -503,36 +504,36 @@ BarWidget {
         Item {
           id: menuBackRow
           width: menuHeader.width
-          implicitHeight: Style.space(30)
+          implicitHeight: Commons.Style.space(30)
 
           Rectangle {
             anchors.fill: parent
-            radius: Math.max(2, Style.cornerRadius)
-            color: backMouse.containsMouse ? Style.hoverFillFor(root.foreground, root.foreground) : "transparent"
+            radius: Math.max(2, Commons.Style.cornerRadius)
+            color: backMouse.containsMouse ? Commons.Style.hoverFillFor(root.foreground, root.foreground) : "transparent"
           }
 
           Text {
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
-            width: Style.space(22)
+            width: Commons.Style.space(22)
             horizontalAlignment: Text.AlignHCenter
             text: "\u2039"
             color: root.foreground
             font.family: root.fontFamily
-            font.pixelSize: Style.font.bodySmall
+            font.pixelSize: Commons.Style.font.bodySmall
           }
 
           Text {
             textFormat: Text.PlainText
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
-            anchors.leftMargin: Style.space(28)
+            anchors.leftMargin: Commons.Style.space(28)
             anchors.right: parent.right
-            anchors.rightMargin: Style.space(10)
+            anchors.rightMargin: Commons.Style.space(10)
             text: root.currentTitle
             color: root.foreground
             font.family: root.fontFamily
-            font.pixelSize: Style.font.bodySmall
+            font.pixelSize: Commons.Style.font.bodySmall
             elide: Text.ElideRight
           }
 
@@ -553,16 +554,16 @@ BarWidget {
 
         Item {
           width: menuHeader.width
-          implicitHeight: Style.space(11)
+          implicitHeight: Commons.Style.space(11)
 
           Rectangle {
             anchors.left: parent.left
-            anchors.leftMargin: Style.space(10)
+            anchors.leftMargin: Commons.Style.space(10)
             anchors.right: parent.right
-            anchors.rightMargin: Style.space(10)
+            anchors.rightMargin: Commons.Style.space(10)
             anchors.verticalCenter: parent.verticalCenter
             height: 1
-            color: Color.popups.border
+            color: Commons.Color.popups.border
             opacity: 0.45
           }
         }
@@ -605,26 +606,26 @@ BarWidget {
 
               visible: !hiddenRow
               width: trayMenuColumn.width
-              implicitHeight: hiddenRow ? 0 : (modelData.isSeparator ? Style.space(11) : Style.space(30))
+              implicitHeight: hiddenRow ? 0 : (modelData.isSeparator ? Commons.Style.space(11) : Commons.Style.space(30))
               opacity: modelData.enabled ? 1.0 : 0.45
 
               Rectangle {
                 visible: menuRow.modelData.isSeparator
                 anchors.left: parent.left
-                anchors.leftMargin: Style.space(10)
+                anchors.leftMargin: Commons.Style.space(10)
                 anchors.right: parent.right
-                anchors.rightMargin: Style.space(10)
+                anchors.rightMargin: Commons.Style.space(10)
                 anchors.verticalCenter: parent.verticalCenter
                 height: 1
-                color: Color.popups.border
+                color: Commons.Color.popups.border
                 opacity: 0.45
               }
 
               Rectangle {
                 visible: !menuRow.modelData.isSeparator
                 anchors.fill: parent
-                radius: Math.max(2, Style.cornerRadius)
-                color: rowMouse.containsMouse && menuRow.modelData.enabled ? Style.hoverFillFor(root.foreground, root.foreground) : "transparent"
+                radius: Math.max(2, Commons.Style.cornerRadius)
+                color: rowMouse.containsMouse && menuRow.modelData.enabled ? Commons.Style.hoverFillFor(root.foreground, root.foreground) : "transparent"
               }
 
               Text {
@@ -632,12 +633,12 @@ BarWidget {
                 visible: !menuRow.modelData.isSeparator && menuRow.modelData.buttonType !== QsMenuButtonType.None
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
-                width: Style.space(22)
+                width: Commons.Style.space(22)
                 horizontalAlignment: Text.AlignHCenter
                 text: menuRow.modelData.checkState === Qt.Checked ? "\uf00c" : ""
                 color: root.foreground
                 font.family: root.fontFamily
-                font.pixelSize: Style.font.bodySmall
+                font.pixelSize: Commons.Style.font.bodySmall
               }
 
               Image {
@@ -645,9 +646,9 @@ BarWidget {
                 visible: !menuRow.modelData.isSeparator && String(menuRow.modelData.icon || "") !== ""
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
-                anchors.leftMargin: Style.space(24)
-                width: Style.space(16)
-                height: Style.space(16)
+                anchors.leftMargin: Commons.Style.space(24)
+                width: Commons.Style.space(16)
+                height: Commons.Style.space(16)
                 fillMode: Image.PreserveAspectFit
                 // Decode at physical pixels: IconImage uses the logical size,
                 // which leaves PNG icons upscaled and blurry on HiDPI displays.
@@ -661,13 +662,13 @@ BarWidget {
                 visible: !menuRow.modelData.isSeparator
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
-                anchors.leftMargin: menuIcon.visible ? Style.space(46) : Style.space(28)
+                anchors.leftMargin: menuIcon.visible ? Commons.Style.space(46) : Commons.Style.space(28)
                 anchors.right: submenuGlyph.left
-                anchors.rightMargin: Style.space(8)
+                anchors.rightMargin: Commons.Style.space(8)
                 text: menuRow.rowText
                 color: root.foreground
                 font.family: root.fontFamily
-                font.pixelSize: Style.font.bodySmall
+                font.pixelSize: Commons.Style.font.bodySmall
                 elide: Text.ElideRight
               }
 
@@ -676,11 +677,11 @@ BarWidget {
                 visible: !menuRow.modelData.isSeparator && menuRow.modelData.hasChildren
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
-                anchors.rightMargin: Style.space(10)
+                anchors.rightMargin: Commons.Style.space(10)
                 text: "\u203a"
                 color: root.foreground
                 font.family: root.fontFamily
-                font.pixelSize: Style.font.bodySmall
+                font.pixelSize: Commons.Style.font.bodySmall
               }
 
               MouseArea {
@@ -715,7 +716,8 @@ BarWidget {
   component TrayIcon: Item {
     id: trayIconRoot
     required property var icon
-    readonly property bool symbolic: root.iconIsSymbolic(icon)
+    readonly property bool symbolic: monochrome || root.iconIsSymbolic(icon)
+    property bool monochrome: false
 
     Image {
       id: trayIconImage
@@ -755,8 +757,10 @@ BarWidget {
 
     TrayIcon {
       anchors.centerIn: parent
-      width: Style.space(12)
-      height: Style.space(12)
+      anchors.alignWhenCentered: false
+      width: Commons.Style.bar.iconCanvas
+      height: Commons.Style.bar.iconCanvas
+      monochrome: true
       icon: trayItemRoot.modelData.icon
     }
 

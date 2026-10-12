@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "io.github.manateelazycat.tray-bar",
   "name": "Omarchy Tray Bar",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "ManateeLazyCat",
   "license": "GPL-3.0-only",
   "description": "Shows Omarchy system tray icons directly without an expander arrow.",
